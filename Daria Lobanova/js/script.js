@@ -1,7 +1,7 @@
 var module = (function() {
     var todoTasks = [];
     var doneTasks = [];
-    
+
     return {
 
         Task: function(status, title, deadline) {
@@ -44,13 +44,13 @@ var module = (function() {
         },
 
         createTask: function(name) {
-            var parent = document.getElementById(name); //ul element            
-            var item = document.createElement('li'); //li item
-            var status = document.createElement('input'); //checkbox
-            var title = document.createElement('input'); //subject
-            var deadline = document.createElement('input'); //date
-            var del = document.createElement('button'); //'del' button
-            //set attributes
+            var parent = document.getElementById(name);           
+            var item = document.createElement('li'); 
+            var status = document.createElement('input'); 
+            var title = document.createElement('input'); 
+            var deadline = document.createElement('input');
+            var del = document.createElement('button'); 
+       
             status.setAttribute('id', 'status');
             status.setAttribute('type', 'checkbox');
         
@@ -63,16 +63,18 @@ var module = (function() {
             deadline.setAttribute('min', new Date().toDateInputValue());
             
             if (name === 'done') {
+                status.setAttribute('checked', true);
                 title.setAttribute('disabled', true);
                 deadline.setAttribute('disabled', true);
             } else {
+                status.checked = false;
                 title.disabled = false;
                 deadline.disabled = false;
             }
         
             del.setAttribute('id', 'del');
             del.innerHTML = 'del';
-            //append children in queue
+            
             item.appendChild(status);
             item.appendChild(title);
             item.appendChild(deadline);
@@ -104,7 +106,6 @@ var module = (function() {
                 doneTasks.push(task);
             }
             
-            //localstore
             localStorage.setItem('todo', JSON.stringify(todoTasks));
             localStorage.setItem('done', JSON.stringify(doneTasks));
         },
