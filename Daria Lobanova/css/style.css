@@ -47,6 +47,7 @@ button, select, input {
 button:hover, select:hover, input:hover {
     opacity: 1;
     border: 2px solid black;
+    cursor: pointer;
 }
 
 button:focus, select:focus, input:focus {
@@ -54,7 +55,8 @@ button:focus, select:focus, input:focus {
 }
 
 input[type = checkbox] {
-    transform: scale(1.5);
+    width: 25px;
+    height: 25px;
 }
 
 select {
@@ -79,5 +81,9 @@ select {
 .done li {
     margin: 20px;
     background-color: #e0e0e085;
+}
+
+.done li input {
+    border: 2px solid rgba(0, 0, 0, 0.5);
 }
 

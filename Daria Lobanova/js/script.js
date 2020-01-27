@@ -2,13 +2,24 @@ var module = (function() {
     var todoTasks = [];
     var doneTasks = [];
 
-    return {
+    function Task(status, title, deadline) {
+        this.status = status;
+        this.title = title;
+        this.deadline = deadline;
+    }
 
-        Task: function(status, title, deadline) {
-            this.status = status;
-            this.title = title;
-            this.deadline = deadline;
-        },
+    function setValues(id, name, item) {
+        var parent = document.getElementById(name);
+        var child = parent.children[id];          
+
+        child.children[0].value = item.status;
+        child.children[1].value = item.title;
+        child.children[2].value = item.deadline;
+
+        return item = new Task(item.status, item.title, item.deadline); 
+    }
+
+    return {
 
         init: function() {
             todoTasks = JSON.parse(localStorage.getItem('todo'));
@@ -16,31 +27,20 @@ var module = (function() {
             
             for (var i = 0; i < todoTasks.length; i++) {
                 this.createTask('todo');
-                this.setValues(i, 'todo', todoTasks[i]);
+                setValues(i, 'todo', todoTasks[i]);
             }
 
             for (var i = 0; i < doneTasks.length; i++) {
                 this.createTask('done');
-                this.setValues(i, 'done', doneTasks[i]);
+                setValues(i, 'done', doneTasks[i]);
             }
-        },
-
-        setValues: function(id, name, item) {
-            var parent = document.getElementById(name);
-            var child = parent.children[id];          
-
-            child.children[0].value = item.status;
-            child.children[1].value = item.title;
-            child.children[2].value = item.deadline;
-
-            return item = new this.Task(item.status, item.title, item.deadline); 
         },
 
         addEmptyTask: function(item) {
             var status = item.children[0].checked;
             var title = item.children[1].value;
             var deadline = item.children[2].value;
-            return todoTasks.push(new this.Task(status, title, deadline));
+            return todoTasks.push(new Task(status, title, deadline));
         },
 
         createTask: function(name) {
@@ -92,7 +92,7 @@ var module = (function() {
                 var status = parentToDo.children[i].children[0].checked;
                 var title = parentToDo.children[i].children[1].value;
                 var deadline = parentToDo.children[i].children[2].value;
-                var task = new module.Task(status, title, deadline);
+                var task = new Task(status, title, deadline);
                 todoTasks.push(task);
             }           
 
@@ -102,7 +102,7 @@ var module = (function() {
                 var status = parentDone.children[i].children[0].checked;
                 var title = parentDone.children[i].children[1].value;
                 var deadline = parentDone.children[i].children[2].value;
-                var task = new module.Task(status, title, deadline);
+                var task = new Task(status, title, deadline);
                 doneTasks.push(task);
             }
             
