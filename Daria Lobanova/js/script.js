@@ -128,11 +128,7 @@ var module = (function() {
         filterByDate: function(list, num) {
             var today = new Date();
             var tomorrow = new Date(today);
-            tomorrow.setDate(today.getDate() + num);
-            
-            var nextYear = tomorrow.getFullYear();
-            var nextMonth = tomorrow.getMonth() + 1;
-            var nextDay = tomorrow.getDate();
+            tomorrow.setDate(today.getDate() + num);        
         
             for (var i = 0; i < todoTasks.length; i++) {
                 var item = todoTasks[i].deadline;
@@ -140,11 +136,13 @@ var module = (function() {
                 var itemYear = itemArr[0];
                 var itemMonth = itemArr[1];
                 var itemDay = itemArr[2];
-        
-                if (!(itemYear == nextYear && itemMonth == nextMonth && itemDay == nextDay)) {
-                    list[i].style.display = 'none';                   
+                
+                var itemDate = new Date(itemYear, itemMonth - 1, itemDay);    
+                
+                if (itemDate <= tomorrow) {                    
+                    list[i].style.display = 'flex';                
                 } else {
-                    list[i].style.display = 'flex';
+                    list[i].style.display = 'none';
                 }
             }
             return list;            
