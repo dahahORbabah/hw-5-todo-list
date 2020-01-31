@@ -160,11 +160,11 @@ document.getElementById('container').onclick = function(event) {
     
     if (target.tagName === 'BUTTON') {
         if (target.getAttribute('id') === 'add') {
-            module.addEmptyTask(module.createTask('todo'));                                        
+            module.addEmptyTask(module.createTask('todo'));                                      
         } else if (target.getAttribute('id') === 'del') {
-            module.removeTask(parent);
-            module.refreshTasks();            
+            module.removeTask(parent);            
         }
+        module.refreshTasks();
     }
 
     if (target.tagName === 'INPUT' && target.getAttribute('type') === 'checkbox') {        
